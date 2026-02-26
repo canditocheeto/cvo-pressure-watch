@@ -67,6 +67,16 @@ In a separate terminal, start the workflow:
 npm run start:client
 ```
 
+### Test your Twilio setup
+
+With the worker running, send a test SMS to verify your Twilio credentials and phone numbers are configured correctly:
+
+```bash
+npm run test:alert
+```
+
+This fires a one-shot workflow that sends a test message and prints the Twilio message SID on success. Each run uses a unique workflow ID so it can be run as many times as needed.
+
 ## Deploy to Railway
 
 1. Push the code to GitHub
