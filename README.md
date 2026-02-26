@@ -9,7 +9,7 @@ The workflow runs on a 4-hour cycle using Temporal's Durable Execution. Each cyc
 1. Fetches the current barometric pressure from OpenWeatherMap
 2. Compares it to the previous reading stored in workflow state (no external database needed)
 3. If the pressure has dropped more than the configured threshold (default 5 hPa), sends an SMS via Twilio advising you to take Advil
-4. Uses `continueAsNew` to carry the current reading forward into the next cycle
+4. Loops every 4 hours for ~30 days, then uses `continueAsNew` to reset workflow history while carrying the last pressure reading forward into the next month
 
 There is no database. Temporal's Durable Execution *is* the persistence layer. The workflow remembers the last pressure reading as part of its own state.
 
