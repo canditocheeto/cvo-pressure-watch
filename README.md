@@ -1,6 +1,6 @@
 # cvo-pressure-watch
 
-A Temporal workflow that monitors barometric pressure near Smithfield, Ontario and sends SMS alerts when a significant pressure drop is detected, helping you stay ahead of barometric pressure headaches.
+A Temporal workflow that monitors barometric pressure at a configured location and sends SMS alerts when a significant pressure drop is detected, helping you stay ahead of barometric pressure headaches.
 
 ## How it works
 
@@ -81,7 +81,7 @@ The worker is a long-running process, not a web server. No PORT configuration is
 
 The workflow accepts the following parameters (set in `src/client.ts`):
 
-- **lat / lon** - coordinates for the weather check (default: 44.22, -77.68 for Smithfield, ON)
+- **lat / lon** - coordinates for the weather check (set to your target location in `src/client.ts`)
 - **pressureDropThreshold** - minimum pressure drop in hPa to trigger an alert (default: 5)
 - **previousPressure** - initial previous reading, set to null on first run
 
