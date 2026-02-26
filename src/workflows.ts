@@ -20,7 +20,7 @@ export async function pressureWatchWorkflow(
     const drop = previousPressure - currentPressure;
     if (drop > pressureDropThreshold) {
       await sendHeadacheAlert(
-        `⚠️ Barometric pressure is dropping fast near Smithfield, ON. It dropped from ${previousPressure} to ${currentPressure} hPa. Consider taking Advil now before a headache hits.`,
+        `⚠️ Barometric pressure is dropping fast. It dropped from ${previousPressure} to ${currentPressure} hPa. Consider taking Advil now before a headache hits.`,
       );
     }
   }
