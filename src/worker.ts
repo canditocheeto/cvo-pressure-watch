@@ -1,8 +1,6 @@
 import { NativeConnection, Worker } from '@temporalio/worker';
 import * as activities from './activities';
 import * as dotenv from 'dotenv';
-import path from 'path';
-
 dotenv.config();
 
 async function main() {
@@ -17,7 +15,7 @@ async function main() {
     connection,
     namespace: process.env.TEMPORAL_NAMESPACE!,
     taskQueue: 'cvo-pressure-watch',
-    workflowsPath: path.resolve(__dirname, './workflows'),
+    workflowsPath: require.resolve('./workflows'),
     activities,
   });
 
