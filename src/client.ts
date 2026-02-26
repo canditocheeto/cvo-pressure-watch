@@ -1,4 +1,4 @@
-import { Connection, Client } from '@temporalio/client';
+import { Connection, Client, WorkflowExecutionAlreadyStartedError } from '@temporalio/client';
 import * as dotenv from 'dotenv';
 
 dotenv.config();
@@ -20,15 +20,23 @@ async function main() {
   const lon = -77.68;
   const pressureDropThreshold = 5; // hPa
 
-  const handle = await client.workflow.start('pressureWatchWorkflow', {
-    taskQueue: 'cvo-pressure-watch',
-    workflowId: 'pressure-watch-location',
-    args: [lat, lon, pressureDropThreshold, null],
-  });
+  try {
+    const handle = await client.workflow.start('pressureWatchWorkflow', {
+      taskQueue: 'cvo-pressure-watch',
+      workflowId: 'pressure-watch-location',
+      args: [lat, lon, pressureDropThreshold, null],
+    });
 
-  console.log(`Started workflow: ${handle.workflowId}`);
-  console.log(`Monitoring barometric pressure at (${lat}, ${lon})`);
-  console.log(`Alert threshold: ${pressureDropThreshold} hPa drop per 4-hour window`);
+    console.log(`Started workflow: ${handle.workflowId}`);
+    console.log(`Monitoring barometric pressure at (${lat}, ${lon})`);
+    console.log(`Alert threshold: ${pressureDropThreshold} hPa drop per 4-hour window`);
+  } catch (err) {
+    if (err instanceof WorkflowExecutionAlreadyStartedError) {
+      console.log('Workflow already running, skipping start.');
+    } else {
+      throw err;
+    }
+  }
 }
 
 main().catch((err) => {
