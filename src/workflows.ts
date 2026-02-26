@@ -10,6 +10,12 @@ const { fetchBarometricPressure, sendHeadacheAlert } = proxyActivities<typeof ac
 
 const CHECKS_PER_MONTH = 180; // 30 days × 6 checks/day (every 4 hours)
 
+export async function testAlertWorkflow(): Promise<string> {
+  return await sendHeadacheAlert(
+    '🧪 Test alert: your Twilio + Temporal setup is working correctly.',
+  );
+}
+
 export async function pressureWatchWorkflow(
   lat: number,
   lon: number,

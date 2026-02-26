@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start:worker": "tsx src/worker.ts",
-    "start:client": "tsx src/client.ts"
+    "start:client": "tsx src/client.ts",
+    "test:alert": "tsx src/test-alert.ts"
   },
   "dependencies": {
     "@temporalio/activity": "^1.11.0",
